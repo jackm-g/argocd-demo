@@ -16,7 +16,7 @@ spec:
       containers:
         - name: api
           image: cgm-django-api:dev-1
-          imagePullPolicy: ifNotPresent
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           env:
