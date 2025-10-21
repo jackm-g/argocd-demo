@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: web-platform
+  namespace: argocd
+spec:
+  sourceRepos:
+    - https://github.com/jackm-g/argocd-demo.git
+  destinations:
+    # allow deploying namespaced resources into 'web'
+    - server: https://kubernetes.default.svc
+      namespace: web
+    # allow cluster-scoped resources (like Namespace) on this cluster
+    - server: https://kubernetes.default.svc
+      namespace: '*'
+  clusterResourceWhitelist:
+    - group: ""        # core API group
+      kind: Namespace  # allow creating Namespace objects
+  # (optional) keep if you want to limit namespaced kinds too:
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

@@ -3,5 +3,6 @@ kind: Kustomization
 resources: [ ../base ]
 images:
   - name: cgm-django-api
-    newTag: latest
+    newTag: dev-1
+    
     

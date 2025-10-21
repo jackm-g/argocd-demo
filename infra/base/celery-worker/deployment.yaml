@@ -12,7 +12,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: worker
-          image: cgm-django-api:latest
+          image: cgm-django-api:dev-1
           command: ["celery"]
           args: ["-A","config.celery_app","worker","--loglevel=INFO","--concurrency=2"]
           env:
