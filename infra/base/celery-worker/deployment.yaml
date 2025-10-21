@@ -18,3 +18,4 @@ spec:
           env:
             - { name: CELERY_BROKER_URL, value: "redis://redis.web.svc.cluster.local:6379/0" }
             - { name: DJANGO_SETTINGS_MODULE, value: config.settings }
+          imagePullPolicy: IfNotPresent
