@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cgm-django-api
+  namespace: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cgm-django-api
+  template:
+    metadata:
+      labels:
+        app: cgm-django-api
+    spec:
+      containers:
+        - name: api
+          image: cgm-django-api:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: config.settings
+            - name: DEBUG
+              value: "1"
+            - name: ALLOWED_HOSTS
+              value: "*"
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cgm-django-api
+  namespace: web
+spec:
+  selector:
+    app: cgm-django-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+          
