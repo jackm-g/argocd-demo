@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: postgresql
-    targetRevision: 17.6.0               # <-- choose a version for stability
+    targetRevision: 16.7.27               # Helm Chart Version
     helm:
       values: |
         fullnameOverride: postgres       # service becomes: postgres.web.svc.cluster.local
