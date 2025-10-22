@@ -6,6 +6,7 @@ metadata:
 spec:
   sourceRepos:
     - https://github.com/jackm-g/argocd-demo.git
+    - https://charts.bitnami.com/bitnami
   destinations:
     # allow deploying namespaced resources into 'web'
     - server: https://kubernetes.default.svc
