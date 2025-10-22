@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"   # deploy DB before your app
+spec:
+  project: web-platform                  # or "default"
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 17.6.0               # <-- choose a version for stability
+    helm:
+      values: |
+        fullnameOverride: postgres       # service becomes: postgres.web.svc.cluster.local
+        auth:
+          username: appuser
+          password: app_pass
+          database: appdb
+        primary:
+          persistence:
+            enabled: false               # ephemeral for dev (fast teardown)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
