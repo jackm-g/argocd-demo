@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: web
 resources:
   - namespace.yaml
+  - postgres/deployment.yaml
   - django-api/deployment.yaml
   - celery-worker/deployment.yaml
